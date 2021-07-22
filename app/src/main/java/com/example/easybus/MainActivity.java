@@ -53,17 +53,20 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Toast.makeText(MainActivity.this,identity,Toast.LENGTH_LONG).show();
+                // Toast.makeText(MainActivity.this,identity,Toast.LENGTH_LONG).show();
+                readUser();
                 if(email2 != "") {
-                    if(identity.equals("需求者")) {
+                    if("requester".equalsIgnoreCase(identity)) {
                         Intent it4 = new Intent(MainActivity.this,Page3Activity.class);
+                        it4.putExtra("email",email2);
                         startActivity(it4);
-                    }else if(identity.equals("照顧者")){
+                    }else if("caregiver".equalsIgnoreCase(identity)){
                         Intent it = new Intent(MainActivity.this,Page4Activity.class);
+                        it.putExtra("email",email2);
                         startActivity(it);
                     }
                 }else{
-                    Intent it = new Intent(MainActivity.this,Login2.class);
+                    Intent it = new Intent(MainActivity.this,Login3.class);
                     startActivity(it);
                 }
 
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void readUser(){
 
-        String URL ="http://192.168.0.114/LoginRegister/fetch.php?email="+email2;
+        final String URL =Urls.url1+"/LoginRegister/fetch.php?email="+email2;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 URL,
@@ -131,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.this,"錯誤拉幹\n"+URL,Toast.LENGTH_LONG).show();
+                       // Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
         );

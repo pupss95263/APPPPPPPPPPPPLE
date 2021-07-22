@@ -60,14 +60,14 @@ public class Forgotpassword extends AppCompatActivity {
         progressDialog.setMessage("寄送中......");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //忘記密碼回登入頁
-        ImageButton btn1 = (ImageButton) findViewById(R.id.back);
+       /* ImageButton btn1 = (ImageButton) findViewById(R.id.back);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it1 = new Intent(Forgotpassword.this,Login2.class);
                 startActivity(it1);
             }
-        });
+        });*/
         mForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +80,7 @@ public class Forgotpassword extends AppCompatActivity {
                         Toast.makeText(Forgotpassword.this, "輸入email", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     } else {
-                        stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.114/mysql/forgot.php", new Response.Listener<String>() {
+                        stringRequest = new StringRequest(Request.Method.POST, Urls.url1+"/mysql/forgot.php", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 try {

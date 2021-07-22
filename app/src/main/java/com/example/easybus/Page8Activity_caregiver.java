@@ -1,5 +1,9 @@
 package com.example.easybus;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 
 import android.Manifest;
 import android.app.Activity;
@@ -57,7 +61,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Page8Activity extends AppCompatActivity {
+public class Page8Activity_caregiver extends AppCompatActivity {
     SelectPicPopupWindow menuWindow; //自訂義的彈出框類別(SelectPicPopupWindow)
 
     ImageView backBtn,editpassword,qrcode,emergency,mycontact,logout;
@@ -71,11 +75,10 @@ public class Page8Activity extends AppCompatActivity {
     private Context mContext;
     public String email,getmail,password,getpass,fullname,pic,phone,encodeimage,img;
     RequestQueue requestQueue;
-    String url =Urls.url1+"/LoginRegister/savepic.php?fullname="+fullname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_page8);
+        setContentView(R.layout.activity_page8_caregiver);
 
         //隱藏title bar
         ActionBar actionBar = getSupportActionBar();
@@ -87,10 +90,9 @@ public class Page8Activity extends AppCompatActivity {
         myphone = findViewById(R.id.txt1);
         editpassword=findViewById(R.id.frame2);
         qrcode = findViewById(R.id.frame3);
-        emergency = findViewById(R.id.frame4);
         mycontact = findViewById(R.id.frame5);
         logout = findViewById(R.id.frame8);
-        mContext = Page8Activity.this;
+        mContext = Page8Activity_caregiver.this;
 
         requestQueue = Volley.newRequestQueue(this);
         getmail=mail();
@@ -102,13 +104,13 @@ public class Page8Activity extends AppCompatActivity {
         mycontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Page8Activity.this,my_contact.class);
+                Intent intent = new Intent(Page8Activity_caregiver.this,my_contact.class);
                 intent.putExtra("email",getmail);
                 startActivity(intent);
                 finish();
             }
         });
-        //新增緊急聯絡人
+       /* //新增緊急聯絡人
         emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,14 +119,14 @@ public class Page8Activity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
         //登出
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences email = getSharedPreferences("email",MODE_PRIVATE);
                 email.edit().clear().commit();
-                Intent it = new Intent(Page8Activity.this,Login3.class);
+                Intent it = new Intent(Page8Activity_caregiver.this,Login3.class);
                 startActivity(it);
             }
         });
@@ -133,7 +135,7 @@ public class Page8Activity extends AppCompatActivity {
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Page8Activity.this,qrcode_page.class);
+                Intent intent = new Intent(Page8Activity_caregiver.this,qrcode_page.class);
                 intent.putExtra("email",getmail);
                 startActivity(intent);
                 finish();
@@ -144,7 +146,7 @@ public class Page8Activity extends AppCompatActivity {
         editpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Page8Activity.this,edit_password.class);
+                Intent intent = new Intent(Page8Activity_caregiver.this,edit_password.class);
                 intent.putExtra("email",getmail);
                 intent.putExtra("password",getpass);
                 startActivity(intent);
@@ -157,12 +159,10 @@ public class Page8Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if("requester".equalsIgnoreCase(identity)) {
-                    Intent it4 = new Intent(Page8Activity.this, Page3Activity.class);
-                    it4.putExtra("email", getmail);
+                    Intent it4 = new Intent(Page8Activity_caregiver.this, Page3Activity.class);
                     startActivity(it4);
                 }else if("caregiver".equalsIgnoreCase(identity)){
-                    Intent it = new Intent(Page8Activity.this,Page4Activity.class);
-                    it.putExtra("email",getmail);
+                    Intent it = new Intent(Page8Activity_caregiver.this,Page4Activity.class);
                     startActivity(it);
                 }
 
@@ -173,9 +173,9 @@ public class Page8Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //實例化SelectPicPopupWindow
-                menuWindow = new SelectPicPopupWindow(Page8Activity.this, itemsOnClick);
+                menuWindow = new SelectPicPopupWindow(Page8Activity_caregiver.this, itemsOnClick);
                 //設計彈出框
-                menuWindow.showAtLocation(Page8Activity.this.findViewById(R.id.profilepic), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                menuWindow.showAtLocation(Page8Activity_caregiver.this.findViewById(R.id.profilepic), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
             }
         });
     }
@@ -198,14 +198,14 @@ public class Page8Activity extends AppCompatActivity {
                             img = response.getString("image");
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(Page8Activity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Page8Activity_caregiver.this, e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Page8Activity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Page8Activity_caregiver.this, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -217,12 +217,12 @@ public class Page8Activity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Page8Activity.this,response,Toast.LENGTH_SHORT).show();
+                Toast.makeText(Page8Activity_caregiver.this,response,Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Page8Activity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Page8Activity_caregiver.this,error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -232,7 +232,7 @@ public class Page8Activity extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(Page8Activity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Page8Activity_caregiver.this);
         requestQueue.add(request);
     }
     public  void fetchimage(){
@@ -252,10 +252,10 @@ public class Page8Activity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Page8Activity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Page8Activity_caregiver.this,error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(Page8Activity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Page8Activity_caregiver.this);
         requestQueue.add(request);
     }
     public void ImageRetriveWithPicasso() {
@@ -265,18 +265,18 @@ public class Page8Activity extends AppCompatActivity {
                 .load(imgurl)
                 .placeholder(R.drawable.profile)
                 .fit()
-               // .error(R.drawable.ic_error_black_24dp)
+                .error(R.drawable.ic_error_black_24dp)
                 .into(mPforfilepic, new Callback() {
                     @Override
                     public void onSuccess() {
                         // 圖片讀取完成
-                        Toast.makeText(Page8Activity.this, "Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Page8Activity_caregiver.this, "Success", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError() {
                         // 圖片讀取失敗
-                      //  Toast.makeText(Page8Activity.this, "失敗拉幹", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Page8Activity_caregiver.this, "失敗拉幹", Toast.LENGTH_SHORT).show();
                     }
                 });
         System.out.println(imgurl);
@@ -349,7 +349,7 @@ public class Page8Activity extends AppCompatActivity {
 
         //如果Android版本大於7.0
         if (Build.VERSION.SDK_INT >= 24) {
-            imageUri = FileProvider.getUriForFile(Page8Activity.this, "com.example.EasyBus.fileprovider",outputImage);
+            imageUri = FileProvider.getUriForFile(Page8Activity_caregiver.this, "com.example.EasyBus.fileprovider",outputImage);
         }else{
             imageUri = Uri.fromFile(outputImage);
         }
@@ -388,7 +388,7 @@ public class Page8Activity extends AppCompatActivity {
                         savepic();
                     }else{
 
-                        Intent it4 = new Intent(Page8Activity.this, Page8Activity.class);
+                        Intent it4 = new Intent(Page8Activity_caregiver.this, Page8Activity_caregiver.class);
                         it4.putExtra("email",getmail);
                         readUser();
                         fetchimage();
@@ -406,18 +406,18 @@ public class Page8Activity extends AppCompatActivity {
                     //獲取圖片
                     if(data != null){
                         Uri uri=data.getData();
-                    if(uri != null){
-                        ContentResolver cr = this.getContentResolver();
-                        Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-                        mPforfilepic.setImageBitmap(bitmap);
-                        imageStore(bitmap);
-                        System.out.println("suri"+uri);
-                        System.out.println("sbitmap"+bitmap.toString());
-                        pic=uri.toString();
-                        savepic();
-                    }
+                        if(uri != null){
+                            ContentResolver cr = this.getContentResolver();
+                            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                            mPforfilepic.setImageBitmap(bitmap);
+                            imageStore(bitmap);
+                            System.out.println("suri"+uri);
+                            System.out.println("sbitmap"+bitmap.toString());
+                            pic=uri.toString();
+                            savepic();
+                        }
                     }else{
-                        Intent it4 = new Intent(Page8Activity.this, Page8Activity.class);
+                        Intent it4 = new Intent(Page8Activity_caregiver.this, Page8Activity_caregiver.class);
                         it4.putExtra("email",getmail);
                         readUser();
                         fetchimage();
@@ -445,6 +445,4 @@ public class Page8Activity extends AppCompatActivity {
         byte[] imageBytes = stream.toByteArray();
         encodeimage = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
-
-
 }

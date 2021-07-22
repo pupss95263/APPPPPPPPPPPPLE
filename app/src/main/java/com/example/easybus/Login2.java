@@ -1,4 +1,4 @@
-  package com.example.easybus;
+package com.example.easybus;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +60,7 @@ public class Login2 extends AppCompatActivity {
         mRegistertext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SignUp2.class);
+                Intent intent = new Intent(getApplicationContext(),Signup3.class);
                 startActivity(intent);
                 finish();
             }
@@ -75,18 +75,7 @@ public class Login2 extends AppCompatActivity {
             }
         });
 
-        /*backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Page3Activity.class);
-                startActivity(intent);
-                finish();
-            }
-        });*/
-
-
         output();
-
         SharedPreferences user = getSharedPreferences("remember", MODE_PRIVATE);
         Email = user.getString("email", "");
         Password = user.getString("password", ""); //取得之前註冊好的資料
@@ -96,13 +85,13 @@ public class Login2 extends AppCompatActivity {
                 public void onClick(View v) {
                     final String email, password;
 
-                    email2 = mEmail.getText().toString();
-                    password2 = mPassword.getText().toString();
+                    email= mEmail.getText().toString();
+                    password = mPassword.getText().toString();
 
 
 
 
-                    if (!email2.equals("") && !password2.equals("")) {
+                    if (!email.equals("") && !password.equals("")) {
                         mProgressBar.setVisibility(View.VISIBLE);
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
@@ -116,7 +105,7 @@ public class Login2 extends AppCompatActivity {
                                 data[0] = email2;
                                 data[1] = password2;
 
-                                PutData putData = new PutData("http://192.168.0.114/LoginRegister/login.php", "POST", field, data);//小高電腦的IP
+                                PutData putData = new PutData(Urls.url1+"/LoginRegister/login.php", "POST", field, data);//小高電腦的IP
                                 if (putData.startPut()) {
                                     if (putData.onComplete()) {
                                         mProgressBar.setVisibility(View.GONE);
