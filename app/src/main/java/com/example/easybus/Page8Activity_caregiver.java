@@ -265,7 +265,7 @@ public class Page8Activity_caregiver extends AppCompatActivity {
                 .load(imgurl)
                 .placeholder(R.drawable.profile)
                 .fit()
-                .error(R.drawable.ic_error_black_24dp)
+               // .error(R.drawable.ic_error_black_24dp)
                 .into(mPforfilepic, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -276,7 +276,7 @@ public class Page8Activity_caregiver extends AppCompatActivity {
                     @Override
                     public void onError() {
                         // 圖片讀取失敗
-                        Toast.makeText(Page8Activity_caregiver.this, "失敗拉幹", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Page8Activity_caregiver.this, "失敗拉幹", Toast.LENGTH_SHORT).show();
                     }
                 });
         System.out.println(imgurl);
