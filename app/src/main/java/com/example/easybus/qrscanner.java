@@ -68,10 +68,11 @@ public class qrscanner extends AppCompatActivity {
         btnok = dialog.findViewById(R.id.okok);
         btncancle = dialog.findViewById(R.id.canclecancle);
         maddfriend = dialog.findViewById(R.id.addfriend);
-
+    ///////////////yeaaaaaaaaaaaaaaaaaaaaaaaah
     }
     public void addfriend(final String f_name,final String f_email,final String f_phone){
         String URL =Urls.url1+"/LoginRegister/addfriend.php?email="+mygetmail;
+        //
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 URL,
@@ -209,5 +210,5 @@ public class qrscanner extends AppCompatActivity {
         }
         return email;
     }
-
+//悲劇
 }

@@ -39,7 +39,6 @@ public class friendAdapter extends RecyclerView.Adapter<friendAdapter.frinedHold
 
     @Override
     public int getItemCount() {
-        System.out.println(friendList.size());
         return friendList.size();
     }
 

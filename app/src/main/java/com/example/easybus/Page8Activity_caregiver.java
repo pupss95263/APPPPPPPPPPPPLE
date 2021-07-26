@@ -438,7 +438,7 @@ public class Page8Activity_caregiver extends AppCompatActivity {
 
         }
     }
-
+//////到底
     private void imageStore(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
@@ -446,3 +446,4 @@ public class Page8Activity_caregiver extends AppCompatActivity {
         encodeimage = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 }
+////

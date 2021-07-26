@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+//我不能從我這貼上喔??
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class my_contact extends AppCompatActivity {
 
         backBtn=findViewById(R.id.backicon);
         mEnteredName = findViewById(R.id.EnteredName);
-
+     //???????
 
         LoadAllfriend();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
