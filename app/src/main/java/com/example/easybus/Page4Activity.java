@@ -20,7 +20,7 @@ public class Page4Activity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         getmail = mail();
-        Toast.makeText(Page4Activity.this, getmail, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Page4Activity.this, getmail, Toast.LENGTH_SHORT).show();
         //跳頁到定位查詢
         Button btn1 = (Button)findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
