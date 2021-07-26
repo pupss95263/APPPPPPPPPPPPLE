@@ -89,7 +89,7 @@ public class my_contact extends AppCompatActivity {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,URL,null,
                 new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONArray array) {
+                    public void onResponse(JSONArray array) {//////
                         if (array.length()==0){
                             dialog.show();
                             clickme.setOnClickListener(new View.OnClickListener() {
