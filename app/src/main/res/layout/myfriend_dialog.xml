@@ -22,30 +22,32 @@
 
             <TextView
                 android:id="@+id/myfriend"
-                android:layout_width="304dp"
-                android:layout_height="150dp"
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
                 android:gravity="center"
                 android:lineSpacingExtra="10dp"
-                android:textSize="20sp"
                 android:text="此聯絡人已存在!!!!"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="302dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="1dp"
+                android:background="#ffffff"
+                android:text="點我!!立即前往我的聯絡人"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="302dp"
-        android:layout_height="153dp"
-        android:alpha="0"
-        android:background="#ffffff"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

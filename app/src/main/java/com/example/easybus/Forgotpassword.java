@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -38,7 +39,7 @@ public class Forgotpassword extends AppCompatActivity {
     Button mForgotPassword;
 
     ProgressDialog progressDialog;
-
+    TextView back;
 
     StringRequest stringRequest;
     String URL ="";
@@ -60,14 +61,14 @@ public class Forgotpassword extends AppCompatActivity {
         progressDialog.setMessage("寄送中......");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //忘記密碼回登入頁
-       /* ImageButton btn1 = (ImageButton) findViewById(R.id.back);
-        btn1.setOnClickListener(new View.OnClickListener() {
+        back=findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it1 = new Intent(Forgotpassword.this,Login2.class);
+                Intent it1 = new Intent(Forgotpassword.this,Login3.class);
                 startActivity(it1);
             }
-        });*/
+        });
         mForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

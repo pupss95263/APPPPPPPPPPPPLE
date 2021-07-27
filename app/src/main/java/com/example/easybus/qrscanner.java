@@ -34,14 +34,25 @@ import java.util.Map;
 public class qrscanner extends AppCompatActivity {
     String f_email,email,mygetmail;
     RequestQueue requestQueue, requestQueue1;
-    Dialog dialog;
-    Button btnok,btncancle;
-    TextView maddfriend,friendname;
+    Dialog dialog,fdialog;
+    //判斷是否加好友、判斷是否存在
+    Button btnok,btncancle,btngo;
+    TextView maddfriend,friendname,myfriend,back;
     //private PopupWindow popupWindow = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrscanner);
+
+        back=findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(qrscanner.this,Page8Activity.class);
+                intent.putExtra("email",mygetmail);
+                startActivity(intent);
+            }
+        });
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -61,6 +72,7 @@ public class qrscanner extends AppCompatActivity {
         //Initiate scan
         intentIntegrator.initiateScan();
         dialog = new Dialog(qrscanner.this);
+        fdialog = new Dialog(qrscanner.this);
 
         dialog.setContentView(R.layout.activity_scan_dialog);
         //刪除dialog方方的背景
@@ -68,6 +80,15 @@ public class qrscanner extends AppCompatActivity {
         btnok = dialog.findViewById(R.id.okok);
         btncancle = dialog.findViewById(R.id.canclecancle);
         maddfriend = dialog.findViewById(R.id.addfriend);
+
+
+        fdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        fdialog.setContentView(R.layout.myfriend_dialog);
+        btngo = fdialog.findViewById(R.id.button10);
+        myfriend = fdialog.findViewById(R.id.myfriend);
+
+
+
 
     }
     public void addfriend(final String f_name,final String f_email,final String f_phone){
@@ -138,6 +159,65 @@ public class qrscanner extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+//判斷好柚是否已經存在friendexist
+
+    public void friendexist(final String f_email) {
+        String URL =Urls.url1+"/LoginRegister/friend_exist.php?email="+mygetmail+"&f_email="+f_email;
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.equals("existed")){
+                            btngo.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    fdialog.dismiss();
+                                    Intent intent = new Intent(qrscanner.this,my_contact.class);
+                                    intent.putExtra("email",mygetmail);
+                                    startActivity(intent);
+                                }
+                            });
+                            fdialog.show();
+                           // Toast.makeText(emergency_contact.this, s, Toast.LENGTH_SHORT).show();
+                        }else{
+                            readUser(f_email);
+
+                            btnok.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    readUser2(f_email);
+                                    Intent intent = new Intent(qrscanner.this,Page8Activity.class);
+                                    intent.putExtra("email",mygetmail);
+                                    startActivity(intent);
+                                }
+                            });
+                            btncancle.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(qrscanner.this,Page8Activity.class);
+                                    intent.putExtra("email",mygetmail);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            dialog.show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(qrscanner.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) ;
+        requestQueue.add(stringRequest);
+    }
+
 
     public void readUser(final String f_email){
         String URL =Urls.url1+"/LoginRegister/fetch.php?email="+f_email;
@@ -177,27 +257,10 @@ public class qrscanner extends AppCompatActivity {
         if(intentResult.getContents()!=null){
             //when reuslt content not null
             f_email = intentResult.getContents();
-            readUser(f_email);
-            btnok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                    readUser2(f_email);
-                    Intent intent = new Intent(qrscanner.this,Page8Activity.class);
-                    intent.putExtra("email",mygetmail);
-                    startActivity(intent);
-                }
-            });
-            btncancle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                    Intent intent = new Intent(qrscanner.this,Page8Activity.class);
-                    intent.putExtra("email",mygetmail);
-                    startActivity(intent);
-                }
-            });
-            dialog.show();
+            friendexist(f_email);
+            //如果聯絡人存在fdialog
+            //如果這個聯絡人不存在 -> else readUser() -> dialog.show() -> 點確認 readUser2() ->返回page8
+                                                                  //-> 點取消 -> 返回page8
         }else{
             Toast.makeText(getApplicationContext(), "掃描失敗", Toast.LENGTH_SHORT).show();
         }

@@ -56,7 +56,7 @@ public class my_contact extends AppCompatActivity {
         dialog.setContentView(R.layout.nofriend_dialog);
         //刪除dialog方方的背景
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        clickme=dialog.findViewById(R.id.button9);
+        clickme=dialog.findViewById(R.id.button10);
 
         LoadAllfriend();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
