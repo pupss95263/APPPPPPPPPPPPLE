@@ -22,7 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +34,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class my_contact extends AppCompatActivity {
-    String email,getmail;
+    String email,getmail,img;
     TextView mEnteredName;
     ImageView backBtn;
     RequestQueue requestQueue;
     RecyclerView mrecyclerView;
     friendAdapter friendAdapter;
+    CircleImageView mPforfilepic;
     List<friend> friendList;
     Dialog dialog;
     Button clickme;
@@ -52,7 +58,7 @@ public class my_contact extends AppCompatActivity {
         backBtn=findViewById(R.id.backicon);
         mEnteredName = findViewById(R.id.EnteredName);
         dialog = new Dialog(my_contact.this);
-
+        mPforfilepic = findViewById(R.id.profilepic);
         dialog.setContentView(R.layout.nofriend_dialog);
         //刪除dialog方方的背景
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -73,6 +79,7 @@ public class my_contact extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         getmail=mail();
         readUser();
+        fetchimage();
         //返回我的資料
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +170,52 @@ public class my_contact extends AppCompatActivity {
                 }
         );
         requestQueue.add(jsonObjectRequest);
+    }
+    public  void fetchimage(){
+        String URL =Urls.url1+"/LoginRegister/fetchimage.php?email="+getmail;
+        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    img  = jsonObject.getString("image");
+
+                    ImageRetriveWithPicasso();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(my_contact.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(my_contact.this);
+        requestQueue.add(request);
+    }
+    public void ImageRetriveWithPicasso() {
+        String imgurl = Urls.url1+"/LoginRegister/images/"+img;
+        Picasso.with(this)
+
+                .load(imgurl)
+                .placeholder(R.drawable.profile)
+                .fit()
+                // .error(R.drawable.ic_error_black_24dp)
+                .into(mPforfilepic, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // 圖片讀取完成
+                        Toast.makeText(my_contact.this, "Success", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError() {
+                        // 圖片讀取失敗
+                        //  Toast.makeText(Page8Activity.this, "失敗拉幹", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        System.out.println(imgurl);
     }
     public String mail(){
         Bundle extras = getIntent().getExtras();

@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 public class Urls {
     private static InetAddress ip;
      static String url2,url3;
-     public static String url1 = "http://192.168.0.127";
+     public static String url1 = "http://192.168.0.118";
      public static void main(String args[]) {
 
       /*  try {
